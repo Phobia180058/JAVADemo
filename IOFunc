@@ -1,0 +1,38 @@
+import java.io.FileInputStream;         
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+
+public class IOFunc {          //文件按16进制字节流输出
+  public static void printHx(String fileName) throws IOException{
+	  FileInputStream in = new FileInputStream(fileName);
+	  int b;   //b为下一个需要输入的字节的值，因为为字节所以只能充满前八位
+	  int i = 1;   //每输入十个字节就要换行
+	  while((b = in.read())!= - 1){   
+		  if (b<= 0xf){
+			  //若b指向单位数，则前面补0
+			  System.out.print("0");
+		  }
+		  System.out.print(Integer.toHexString(b)+" ");
+		  if (i++%10==0){
+			  System.out.println();
+		  }
+	  }
+	  in.close();//每次IO操作完都需要关闭
+  }
+  public static void printHxByBytes(String fileName) throws IOException{
+	  FileInputStream in =new FileInputStream(fileName);
+	  byte buf[] = new byte[20*1024];
+	  int j = 1;
+	  int bytes = in.read(buf, 0, buf.length);//bytes为总共读进去的字节数
+	  for(int i = 0;i<bytes;i++){
+	  /*for(byte b:buf){
+		  System.out.print(b&0xff+" ");     若采用EACH则如果输出内容不满buf则后面全为0
+	  }*/
+		  System.out.print(Integer.toHexString(buf[i]&0xff)+" ");
+		  if(j++%10 == 0){
+			  System.out.println();    //读满10位换行
+		  }
+	  }
+  }
+}
