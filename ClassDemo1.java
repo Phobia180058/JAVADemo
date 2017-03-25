@@ -13,15 +13,14 @@ public class ClassDemo1 {
 	User u1 = new User();
 	Class c2 = u1.getClass();
 	
-	Class c3 = Class.forName("ClassDemo.User"); //User类中必须有默认构造函数且必须为全名
+	Class c3 = Class.forName("ClassDemo.User"); 
 	Field f1 = c1.getField("userID");
 	System.out.println(f1.getClass().getName());
 	
 	System.out.println(c1 == c2);
 	System.out.println(c1 == c3);
 	
-	
-	
+	User u2 = c1.getInstance();//通过类类型来创建对象，前提必须有默认构造函数	
 	User user = new User();
 	//得到User的类类型
 	Class c = user.getClass();
